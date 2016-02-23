@@ -1,0 +1,23 @@
+    #
+    # TEST CASE 5
+    # YOUR TEST CASE GOES HERE: extensive operations test
+    #
+
+#zero out all registers
+MUL $a0 $0 0
+ADD $a0 $0 10
+SH $a0 7($t9)
+LH $a1 7($t9)
+ADD $t5 $0 5
+LW $a1 0($t5)
+SW $a0 4($a1)
+ADD $t2 $a0 -68
+ADD $t8 $0 7
+SH $a0 $t8($t9)
+LH $t12 7($t9)
+
+ADD $t7 $0 25
+DIV $t10 $t7 -10
+
+STU $t19 $t10 $a0
+

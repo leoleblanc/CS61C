@@ -1,0 +1,63 @@
+    #
+    # TEST CASE 4
+    # YOUR TEST CASE GOES HERE: stack pointer and memory test
+    #
+
+#zero out all registers
+MUL $jc $0 0  
+MUL $sp $0 0
+MUL $fp $0 0
+MUL $v0 $0 0
+MUL $v1 $0 0
+MUL $ra $0 0
+MUL $a0 $0 0
+MUL $a1 $0 0 
+MUL $a2 $0 0 
+MUL $a3 $0 0 
+MUL $a4 $0 0  
+MUL $t0 $0 0
+MUL $t1 $0 0
+MUL $t2 $0 0
+MUL $t3 $0 0 
+MUL $t4 $0 0
+MUL $t5 $0 0
+MUL $t6 $0 0
+MUL $t7 $0 0
+MUL $t8 $0 0
+MUL $t9 $0 0
+MUL $t10 $0 0
+MUL $t11 $0 0
+MUL $t12 $0 0 
+MUL $t13 $0 0
+MUL $t14 $0 0
+MUL $t15 $0 0
+MUL $t16 $0 0
+MUL $t17 $0 0
+MUL $t18 $0 0
+MUL $t19 $0 0
+
+ADD $t0 $0 -9
+ADD $t1 $0 9789
+ADD $t2 $0 -678
+ADD $t3 $0 73
+ADD $t4 $0 0
+ADD $t5 $0 97
+ADD $t6 $0 8
+
+ADD $jc $0 180
+
+begin: 	SH $t8 1($t5)
+		SW $t7 7($t9)
+		REV $t9 $t7 $jc
+		DIV $t10 $t9 $jc
+		LW $t11 1($t5)
+		LH $t12 7($t9)
+
+		ADD $jc $jc -1
+		JGT @begin
+
+
+
+
+
+

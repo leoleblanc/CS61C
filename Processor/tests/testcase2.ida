@@ -1,0 +1,136 @@
+    #
+    # TEST CASE 2
+    # YOUR TEST CASE GOES HERE: loops and jumps
+    #
+
+#zero out all registers
+MUL $jc $0 0  
+MUL $sp $0 0
+MUL $fp $0 0
+MUL $v0 $0 0
+MUL $v1 $0 0
+MUL $ra $0 0
+MUL $a0 $0 0
+MUL $a1 $0 0 
+MUL $a2 $0 0 
+MUL $a3 $0 0 
+MUL $a4 $0 0  
+MUL $t0 $0 0
+MUL $t1 $0 0
+MUL $t2 $0 0
+MUL $t3 $0 0 
+MUL $t4 $0 0
+MUL $t5 $0 0
+MUL $t6 $0 0
+MUL $t7 $0 0
+MUL $t8 $0 0
+MUL $t9 $0 0
+MUL $t10 $0 0
+MUL $t11 $0 0
+MUL $t12 $0 0 
+MUL $t13 $0 0
+MUL $t14 $0 0
+MUL $t15 $0 0
+MUL $t16 $0 0
+MUL $t17 $0 0
+MUL $t18 $0 0
+MUL $t19 $0 0
+
+#an add loop
+ADD $jc $0 10
+
+add: 
+	ADD $t0 $t0 1
+	SUB $jc $jc 1
+	JGT @add
+
+#a subtract loop
+ADD $jc $0 -10
+ADD $t1 $t1 10
+
+sub:
+	SUB $t1 $t1 1
+	ADD $jc $jc 1
+	JLT @sub
+
+#a multiply loop: factorial
+ADD $jc $0 5
+ADD $t2 $t2 1
+J @mul
+
+increment_mul:
+	SUB $jc $jc 1
+	JGT @mul
+	J @end_mul
+
+mul:
+	MUL $t2 $t2 $jc
+	J @increment_mul
+
+end_mul:
+	#ADD $jc $0 $0
+
+#a divide loop
+ADD $jc $0 2
+ADD $t4 $0 5
+ADD $t3 $t3 100
+J @div
+
+increment_div:
+	SUB $jc $jc 1
+	SUB $t4 $t4 1
+	JGT @div
+	J @end_div
+
+div:
+	DIV $t3 $t3 $t4
+	J @increment_div
+
+end_div:
+
+#loop involving bit operations
+ADD $jc $0 0b01000000000000000
+ADD $t4 $0 $0
+ADD $t7 $0 1
+J @bit_ops
+
+increment_ops:
+	SR $jc $jc 1
+	SL $t7 $t7 1
+	JGT @bit_ops
+	JEQ @intermediate
+	J @end_bit_ops
+
+intermediate:
+	ADD $t8 $t8 0xa2d5
+	J @end_bit_ops
+
+bit_ops:
+	OR $t4 $t4 $jc
+	AND $t5 $t5 $jc
+	XOR $t6 $t6 $jc
+	J @increment_ops
+
+end_bit_ops:
+
+#need to test other jumps:
+
+#testing the other jump types
+ADD $jc $jc 20
+J @JGE_test
+
+JGE_test:
+	SUB $jc $jc 2
+	JNE @JNE_test
+	JLE @JLE_test
+
+JNE_test:
+	SUB $jc $jc 1
+	JGE @JGE_test
+
+jump_back:
+	REV $t9 $t8 7
+	J $ra
+
+JLE_test:
+	JAL @jump_back

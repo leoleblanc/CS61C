@@ -1,0 +1,16 @@
+Leo Leblanc cs61c-adh
+Derrick Hu cs61c-ajm
+
+1. The number of positions in the 2x2 final solution is 12, while all the ways of permuting 4 pieces is 4! which is 4 x 3 x 2 x 1 = 24. 24 is double the number of positions in the 2x2 final solution. 
+
+This produces extra solutions and a problem because some of these configurations are not actually able to be obtained due to the original block locations and constraints. For example, if we have an original block configuration of (A, B, C, - ) and want to get the configuration (A, C, B - ), this is an impossible configuration to obtain, yet your friend says it is obtainable just because it is a permutation. 
+
+2. Depth first search would be better because since we just want the solutions quickly and not the locations of the other blocks. 
+
+I would modify my original solver not to do breadth first search and not go through all the children level by level, but to just go through one child all the way down one path through a depth first search. 
+
+3. We need to keep track of whether each peg has any possible moves left. For each peg, we need to know the pegs that are not only adjacent to it, but 2 pegs away.
+
+The changes I would make to solver would be that it would have an array with all the pegs and slowly remove the pegs until there is one peg left in the middle. 
+
+It would change the memory requirements of solver because we would have to store each peg's position and the pegs that are 2 pegs away from it in all directions and keep constantly updating this. 

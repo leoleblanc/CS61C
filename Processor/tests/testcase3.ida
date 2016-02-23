@@ -1,0 +1,84 @@
+    #
+    # TEST CASE 3
+    # YOUR TEST CASE GOES HERE: stack pointer and memory test
+    #
+
+#zero out all registers
+MUL $jc $0 0  
+MUL $sp $0 0
+MUL $fp $0 0
+MUL $v0 $0 0
+MUL $v1 $0 0
+MUL $ra $0 0
+MUL $a0 $0 0
+MUL $a1 $0 0 
+MUL $a2 $0 0 
+MUL $a3 $0 0 
+MUL $a4 $0 0  
+MUL $t0 $0 0
+MUL $t1 $0 0
+MUL $t2 $0 0
+MUL $t3 $0 0 
+MUL $t4 $0 0
+MUL $t5 $0 0
+MUL $t6 $0 0
+MUL $t7 $0 0
+MUL $t8 $0 0
+MUL $t9 $0 0
+MUL $t10 $0 0
+MUL $t11 $0 0
+MUL $t12 $0 0 
+MUL $t13 $0 0
+MUL $t14 $0 0
+MUL $t15 $0 0
+MUL $t16 $0 0
+MUL $t17 $0 0
+MUL $t18 $0 0
+MUL $t19 $0 0
+
+ADD $jc $jc 5
+
+ADD $a0 $0 1000
+
+JAL @set_stack
+
+ADD $jc $jc 5
+
+# JAL @after
+
+J @end
+
+set_stack:
+ 	ADD $sp $sp -4
+ 	SW $ra 0($sp)
+ 	SW $a0 2($sp)
+
+ 	DIV $a0 $a0 2
+
+ 	JAL @increment_set
+ 	JGT @set_stack
+
+ 	ADD $sp $sp 4
+ 	LW $ra 0($sp)
+ 	LW $a0 2($sp)
+ 	J $ra
+
+increment_set:
+	ADD $jc $jc -1
+	J $ra
+
+after:
+	LW $ra 0($sp)
+	LW $a0 2($sp)
+	ADD $sp $sp 4
+	ADD $v0 $v0 $a0
+	JAL @increment_add
+	JGT @after
+	J $ra
+
+increment_add:
+	SUB $jc $jc 1
+	J $ra
+
+		
+end:

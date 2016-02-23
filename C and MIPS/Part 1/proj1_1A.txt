@@ -1,0 +1,13 @@
+Fill in your answers here.
+
+1. The algorithm identifies the sticky note very well. It is able to tell that the sticky note is at a closer distance than the building behind it. But yes, it also mistakenly identifies other things as "close by" as well. 
+This is because since the image is taken from further away, when the algorithm is calculating Squared Euclidean Distance from the features, it might mistakenly calculate smaller distances because the image is blurrier and less distinct from afar. From afar, the pixels look more similar and the algorithm might match features that are not necessarily the same and return that they are much closer than they really are. 
+
+2. The algorithm works better for these images. This is because real2's images were taken from a much closer view or zoomed in view and not from afar like real1's. The way the theory works is displacement in stereo images is inversely proportional to depth. The closer an image is, the more displacement your eyes will do and this program works similarly. Real2 is taken at a much closer angle and thus the algorithm is able to create more displacement and distinguish better what is closer and what is further. Whereas Real1 is taken from further back and a lot of the image looks overall from a further depth and the algorithm has more trouble telling how far or close something is. Everything becomes more blurry and more of the features look more similar and so its calculated distance is incorrect.
+
+3. a couple of things happened;
+	- a sort of "frame" surrounds the image, getting wider as the feature height/width 	increases
+	- the image resolution seems to drop, quite markedly, and the letters look as 		though they're smushed together
+
+The frame is easily explained by the feature height/width constraints acting upon the edges of the image.  The resolution drop, however, is a bit more tricky.  One would think that because the feature is larger, this would mean that finding the location of the displaced pixel would be more accurate.  However, since the maximum displacement didn't change, this would mean larger features in a somewhat larger search space. Perhaps what happened is the rate of the feature size increasing was higher than that of the search space, which would lead to less features examined total, which would lead to a larger margin of error.
+
